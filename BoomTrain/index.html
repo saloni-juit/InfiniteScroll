@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<title>Saloni BoomTrain</title>
+
+<head>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="js/angular.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body ng-app="BoomApp">
+    <!-- Modal -->
+    <div class="container" ng-controller="MainCtrl as main">
+
+        <div class="modal fade" id="editModal" role="dialog" >
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Edit Repo</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <label>Name of Repo</label>
+                            <input type="text" name="fullName" value="{{editDataModel.full_name}}" ng-model="editDataModel.full_name" />
+                        </div>
+                        <div>
+                            <label>Owner Login</label>
+                            <input type="text" name="ownerLogin" value="{{editDataModel.owner.login}}" ng-model="editDataModel.owner.login" />
+                        </div>
+                        <div>
+                            <label>Description</label>
+                            <input type="text" name="description" value="{{editDataModel.description}}" ng-model="editDataModel.description" />
+                        </div>
+                        <div>
+                            <label>Owner Type</label>
+                            <input type="text" name="ownerLogin" value="{{editDataModel.owner.type}}" ng-model="editDataModel.owner.type" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="submitData()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <section class="content">
+                <h1>Github Repositories</h1>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-container">
+                                <table class="table table-filter" id="container_element" ng-model="repo">
+                                    <tbody>
+                                        <tr ng-repeat="item in repo track by $index">
+                                            <td>
+                                                <div class="media">
+                                                    <a href="#" class="pull-left">
+                                                        <img src="{{item.owner.avatar_url}}" class="media-photo">
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <span class="media-meta pull-right">{{item.owner.type}}</span>
+                                                        <h4 class="title">
+														<a href="{{item.html_url}}">{{item.full_name}}</a>
+														<span class="pull-right pagado">{{item.owner.login}}</span>
+													</h4>
+                                                        <p class="summary">{{item.description}}</p>
+                                                    </div>
+                                                    <a href="#" class="pull-right" ng-click="editData($index)" data-index="{{$index}}" data-target="#editModal" data-toggle="modal">Edit</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-footer">
+                    	<div class="message" ng-model="message">{{message}}</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+
+</html>
